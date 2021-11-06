@@ -1,26 +1,10 @@
 const express = require('express');
 const faker = require('faker');
 
-const app = express();
-const port = 3000;
-
-app.get('/', (req, res) => {
-  res.send('El servidor responde');
-});
-
-app.get('/mensaje', (req, res) => {
-  res.send('Este te envia un mensaje');
-});
-
-app.get('/json', (req, res) => {
-  res.json({
-    mensaje: 'Un mensaje',
-    numero: 1,
-  });
-});
+const router = express.Router();
 
 //GET - List with query params
-app.get('/products', (req, res) => {
+router.get('/', (req, res) => {
   const products = [];
   const { size } = req.query;
   const limit = size || 100;
@@ -36,7 +20,7 @@ app.get('/products', (req, res) => {
 });
 
 // GET - Retrieve
-app.get('/products/:id', (req, res) => {
+router.get('/:id', (req, res) => {
   const { id } = req.params;
   res.json([
     {
@@ -48,6 +32,4 @@ app.get('/products/:id', (req, res) => {
   ]);
 });
 
-app.listen(port, () => {
-  console.log('Servidor corriendo en puerto: ' + port);
-});
+module.exports = router
